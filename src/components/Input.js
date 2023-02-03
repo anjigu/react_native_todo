@@ -2,34 +2,42 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 export const KeyboardTypes = {
-    DEFAULT: "default",
-    EMAIL: "email-address",
-}
-const Input = ({ title, placeholder, keyboardType }) => {
+  DEFAULT: 'default',
+  EMAIL: 'email-address',
+};
+
+export const ReturnKeyTypes = {
+  DONE: 'done',
+  NEXT: 'next',
+};
+
+const Input = ({ title, placeholder, ...props }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
 
       <TextInput
+        {...props}
         style={styles.input}
         placeholder={placeholder ?? title}
         placeholderTextColor={'#a3a3a3'}
-        //특정 문자를 자동으로 대문자로 변경
-        autoCapitalize={'name'}
-        //자동 수정
+        autoCapitalize={'none'}
         autoCorrect={false}
-        keyboardType={keyboardType}
+        textContentType={'none'}
+        keyboardAppearance={'light'}
       />
     </View>
   );
 };
 
+Input.defaultProps = {
+  returnKeyType: ReturnKeyTypes.DONE,
+};
+
 Input.propTypes = {
   title: PropTypes.string,
   placeholder: PropTypes.string,
-  keyboardType: PropTypes.oneOf(Object.values(KeyboardTypes)),
 };
-
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -46,5 +54,4 @@ const styles = StyleSheet.create({
     height: 42,
   },
 });
-
 export default Input;
