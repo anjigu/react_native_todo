@@ -24,6 +24,7 @@ const Input = ({
       <Text style={styles.title}>{title}</Text>
 
       <TextInput
+      //props는 최상단에 위치 
         {...props}
         style={styles.input}
         placeholder={placeholder ?? title}

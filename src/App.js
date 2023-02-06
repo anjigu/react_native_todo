@@ -2,11 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import SignInScreen from './screens/SignInScreen';
 
+
 const App = () => {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
       <SignInScreen />
+      {/* <TestAvoid /> */}
     </View>
   );
 };
