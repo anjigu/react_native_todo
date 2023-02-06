@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { GRAY, PRIMARY } from '../colors';
+import { BLACK, GRAY, PRIMARY } from '../colors';
 import { useState } from 'react';
 
 export const KeyboardTypes = {
@@ -22,13 +22,23 @@ const Input = ({
 const [isFocused, setIsFocused] = useState(false);
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, isFocused && styles.focusedTitle]}>{title}</Text>
+      <Text style={[
+        //스타일이 여러가지 일때는, 조건이 많이 붙는 스타일은 가장 뒤로 보내기
+        styles.title, //default
+        value && styles.hasValueTitle, //value
+        isFocused && styles.focusedTitle, //value +focus  
+      ]}>
+      {title}
+      </Text>
 
       <TextInput
       //props는 최상단에 위치 
         {...props}
         value={value}
-        style={[styles.input, isFocused && styles.focusedInput]}
+        style={[
+          styles.input, 
+          value && styles.hasValueInput,
+          isFocused && styles.focusedInput]}
         placeholder={placeholder ?? title}
         placeholderTextColor={GRAY.DEFAULT}
         autoCapitalize={'none'}
@@ -69,6 +79,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: PRIMARY.DEFAULT,
   },
+  hasValueTitle: {
+    color: BLACK,
+  },
   input: {
     borderWidth: 1,
     borderRadius: 8,
@@ -80,6 +93,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: PRIMARY.DEFAULT,
     color: PRIMARY.DEFAULT,
+  },
+  hasValueInput: {
+    borderColor: BLACK,
+    color: BLACK,
   }
 });
 export default Input;
