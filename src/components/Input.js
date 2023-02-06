@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { BLACK, GRAY, PRIMARY } from '../colors';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const KeyboardTypes = {
@@ -19,15 +19,11 @@ EMAIL: 'email',
 PASSWORD: 'lock'
 };
 
-const Input = ({ 
-  title, 
-  placeholder, 
-  value,
-  iconName,
-  ...props
-}) => {
-const [isFocused, setIsFocused] = useState(false);
-  return (
+const Input = forwardRef(
+  ({ title, placeholder, value,iconName, ...props}, ref) => {
+const [isFocused, setIsFocused] = useState(false); 
+  
+return (
     <View style={styles.container}>
       <Text style={[
         //스타일이 여러가지 일때는, 조건이 많이 붙는 스타일은 가장 뒤로 보내기
@@ -41,6 +37,7 @@ const [isFocused, setIsFocused] = useState(false);
 <View>
       <TextInput
       //props는 최상단에 위치 
+      ref={ref}
         {...props}
         value={value}
         style={[
@@ -62,6 +59,7 @@ const [isFocused, setIsFocused] = useState(false);
             name={iconName}
             size={20}
             color={(() => {
+              //즉시 실행 함수
               switch (true) {
                 case isFocused:
                   return PRIMARY.DEFAULT;
@@ -76,8 +74,9 @@ const [isFocused, setIsFocused] = useState(false);
       </View>
       </View>
   );
-};
+});
 
+Input.displayName = 'Input';
 Input.defaultProps = {
   returnKeyType: ReturnKeyTypes.DONE,
 };
