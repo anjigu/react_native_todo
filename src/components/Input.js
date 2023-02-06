@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { BLACK, GRAY, PRIMARY } from '../colors';
 import { useState } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const KeyboardTypes = {
   DEFAULT: 'default',
@@ -13,10 +14,16 @@ export const ReturnKeyTypes = {
   NEXT: 'next',
 };
 
+export const IconNames = {
+EMAIL: 'email',
+PASSWORD: 'lock'
+};
+
 const Input = ({ 
   title, 
   placeholder, 
   value,
+  iconName,
   ...props
 }) => {
 const [isFocused, setIsFocused] = useState(false);
@@ -31,6 +38,7 @@ const [isFocused, setIsFocused] = useState(false);
       {title}
       </Text>
 
+<View>
       <TextInput
       //props는 최상단에 위치 
         {...props}
@@ -48,23 +56,38 @@ const [isFocused, setIsFocused] = useState(false);
         onBlur={() => setIsFocused(false)}
         onFocus={() => setIsFocused(true)}
       />
-    </View>
+
+<View style={styles.icon}>
+          <MaterialCommunityIcons
+            name={iconName}
+            size={20}
+            color={(() => {
+              switch (true) {
+                case isFocused:
+                  return PRIMARY.DEFAULT;
+                case !!value:
+                  return BLACK;
+                default:    
+                  return GRAY.DEFAULT;
+              }
+            })()}
+          />
+        </View>
+      </View>
+      </View>
   );
 };
 
 Input.defaultProps = {
   returnKeyType: ReturnKeyTypes.DONE,
 };
-
 Input.propTypes = {
   title: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.string, 
-  // keyboardType: PropTypes.oneOf(Object.values(KeyboardTypes)),
-  // returnKeyType: PropTypes.oneOf(Object.values(ReturnKeyTypes)),
-  // secureTextEntry: PropTypes.bool,
-
+  value: PropTypes.string,
+  iconName: PropTypes.oneOf(Object.values(IconNames)),
 };
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -73,7 +96,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 4,
-    color: GRAY.DEFAULT
+    color: GRAY.DEFAULT,
   },
   focusedTitle: {
     fontWeight: '600',
@@ -88,6 +111,7 @@ const styles = StyleSheet.create({
     borderColor: GRAY.DEFAULT,
     paddingHorizontal: 20,
     height: 42,
+    paddingLeft: 30,
   },
   focusedInput: {
     borderWidth: 2,
@@ -97,6 +121,13 @@ const styles = StyleSheet.create({
   hasValueInput: {
     borderColor: BLACK,
     color: BLACK,
-  }
+  },
+  icon: {
+    position: 'absolute',
+    left: 8,
+    height: '100%',
+    justifyContent: 'center',
+  },
 });
+
 export default Input;
