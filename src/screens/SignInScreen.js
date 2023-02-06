@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import Button from '../components/Button';
 import Input, {
   IconNames,
   KeyboardTypes,
@@ -13,10 +14,13 @@ const SignInScreen = () => {
   //useRef은 값이 변해도 리렌더링 되지 않는다
   //valueRef.current에 값이 들어간다 
   const passwordRef = useRef(null);
+  const [disabled, setDisabled] = useState(true);
 
   const onSubmit = () => {
-    console.log('onSubmit')
+    if(!disabled){
+    console.log('onSubmit');
   }
+};
 
   return (
     <SafeInputView>
@@ -45,6 +49,9 @@ const SignInScreen = () => {
           iconName={IconNames.PASSWORD}
           onSubmitEditing={onSubmit}
         />
+        <View style={styles.buttonContainer}>
+        <Button title={'LOGIN'} onPress={onSubmit} disabled={disabled} />
+        </View>
       </View>
     </SafeInputView>
   );
@@ -59,5 +66,11 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  buttonContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 20,
+  }
 });
+
 export default SignInScreen;
