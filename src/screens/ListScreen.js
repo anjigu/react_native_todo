@@ -1,9 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import Button from "../components/Button";
 
-const ListScreen = () => {
+const ListScreen = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 30 }}>ListScreen</Text>
+            <Button></Button>
         </View>
     )
 };

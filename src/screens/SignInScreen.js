@@ -31,14 +31,15 @@ const SignInScreen = ({navigation, route}) => {
         await signIn(email, password);       
         setIsLoading(false); 
         //화면 이동 
-        navigation.push('List');
+        navigation.navigate('List');
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
-          {text: 'OK', 
-          onPress: () => setIsLoading(false),},
+          {
+            text: 'OK',
+            onPress: () => setIsLoading(false),
+          },
         ]);
       }
-      setIsLoading(false);
     }
   };
 
