@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Image, Keyboard, StyleSheet, View } from 'react-native';
+import { Alert, Image, Keyboard, StyleSheet, View } from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
@@ -29,9 +29,13 @@ const SignInScreen = () => {
       setIsLoading(true);
       try {
         const data = await signIn(email, password);   
-        console.log(data);     
+        console.log(data);    
+        setIsLoading(false); 
       } catch (e) {
-        console.log(e);
+        Alert.alert('SignIn Failed', e, [
+          {text: 'OK', 
+          onPress: () => setIsLoading(false),},
+        ]);
       }
       setIsLoading(false);
     }
