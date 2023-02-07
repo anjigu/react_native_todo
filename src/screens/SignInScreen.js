@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image, Keyboard, StyleSheet, View } from 'react-native';
+import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
   IconNames,
@@ -15,15 +16,24 @@ const SignInScreen = () => {
   //valueRef.current에 값이 들어간다 
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
+  //로그인
   useEffect(() => {
     setDisabled(!email || !password)
-  }, [email, password]) //렌더링 할 때마다 항상 호출, 여러개를 사용할 경우 호출 순서가 중요함
+  }, [email, password]) 
 
-  const onSubmit = () => {
-    if (!disabled) {
+  const onSubmit = async () => {
+    if (!disabled && !isLoading) {
       Keyboard.dismiss();
-      console.log('onSubmit');
+      setIsLoading(true);
+      try {
+        const data = await signIn(email, password);   
+        console.log(data);     
+      } catch (e) {
+        console.log(e);
+      }
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +66,11 @@ const SignInScreen = () => {
         />
 
         <View style={styles.buttonContainer}>
-          <Button title={'LOGIN'} onPress={onSubmit} disabled={disabled} />
+          <Button 
+          title={'LOGIN'} 
+          onPress={onSubmit} 
+          disabled={disabled} 
+          />
         </View>
       </View>
     </SafeInputView>
