@@ -9,7 +9,7 @@ import Input, {
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
 
-const SignInScreen = () => {
+const SignInScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //useRef은 값이 변해도 리렌더링 되지 않는다
@@ -28,9 +28,10 @@ const SignInScreen = () => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        const data = await signIn(email, password);   
-        console.log(data);    
+        await signIn(email, password);       
         setIsLoading(false); 
+        //화면 이동 
+        navigation.push('List');
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
           {text: 'OK', 
