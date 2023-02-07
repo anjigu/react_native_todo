@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Image, Keyboard, StyleSheet, View } from 'react-native';
 import Button from '../components/Button';
 import Input, {
   IconNames,
@@ -14,13 +14,16 @@ const SignInScreen = () => {
   //useRef은 값이 변해도 리렌더링 되지 않는다
   //valueRef.current에 값이 들어간다 
   const passwordRef = useRef(null);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {}) //렌더링 할 때마다 항상 호출
 
   const onSubmit = () => {
-    if(!disabled){
-    console.log('onSubmit');
-  }
-};
+    if (!disabled) {
+      Keyboard.dismiss();
+      console.log('onSubmit');
+    }
+  };
 
   return (
     <SafeInputView>
@@ -49,13 +52,15 @@ const SignInScreen = () => {
           iconName={IconNames.PASSWORD}
           onSubmitEditing={onSubmit}
         />
+
         <View style={styles.buttonContainer}>
-        <Button title={'LOGIN'} onPress={onSubmit} disabled={disabled} />
+          <Button title={'LOGIN'} onPress={onSubmit} disabled={disabled} />
         </View>
       </View>
     </SafeInputView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     marginTop: 20,
-  }
+  },
 });
 
 export default SignInScreen;
