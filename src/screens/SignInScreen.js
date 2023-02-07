@@ -14,9 +14,11 @@ const SignInScreen = () => {
   //useRef은 값이 변해도 리렌더링 되지 않는다
   //valueRef.current에 값이 들어간다 
   const passwordRef = useRef(null);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
-  useEffect(() => {}) //렌더링 할 때마다 항상 호출
+  useEffect(() => {
+    setDisabled(!email || !password)
+  }, [email, password]) //렌더링 할 때마다 항상 호출, 여러개를 사용할 경우 호출 순서가 중요함
 
   const onSubmit = () => {
     if (!disabled) {
