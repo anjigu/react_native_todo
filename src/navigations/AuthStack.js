@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Pressable, Text } from 'react-native';
 import { PRIMARY, WHITE } from '../colors';
 import ListScreen from '../screens/ListScreen';
 import SignInScreen from '../screens/SignInScreen';
+import HeaderLeftButton from '../components/HeaderLeftButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,15 +18,12 @@ const AuthStack = () => {
         headerTintColor: PRIMARY.DEFAULT,
         headerTitleStyle: { fontWeight: '700'},
         title: 'TODO LIST',
-}}>
-      <Stack.Screen 
-      name={'List'} 
-      component={ListScreen} 
-      />
-      <Stack.Screen 
-      name={'SignIn'} 
-      component={SignInScreen}
-      />
+        headerBackTitleVisible: false, //Ios 뒤로가기 버튼에서도 타이틀이 보이지 않게 함
+        headerLeft: HeaderLeftButton,  //헤더 왼쪽 버튼 뒤로가기 기능     
+}}
+>
+      <Stack.Screen name={'List'} component={ListScreen} />
+      <Stack.Screen name={'SignIn'} component={SignInScreen} />
     </Stack.Navigator>
   );
 };
