@@ -3,6 +3,7 @@ import { PRIMARY, WHITE } from '../colors';
 import ListScreen from '../screens/ListScreen';
 import SignInScreen from '../screens/SignInScreen';
 import HeaderLeftButton from '../components/HeaderLeftButton';
+import HeaderRightButton from '../components/HeaderRightButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,10 @@ const AuthStack = () => {
         headerLeft: HeaderLeftButton,  //헤더 왼쪽 버튼 뒤로가기 기능     
 }}
 >
-      <Stack.Screen name={'List'} component={ListScreen} />
+      <Stack.Screen 
+      name={'List'} 
+      component={ListScreen}
+      options={{headerRight: HeaderRightButton}} />
       <Stack.Screen name={'SignIn'} component={SignInScreen} />
     </Stack.Navigator>
   );
