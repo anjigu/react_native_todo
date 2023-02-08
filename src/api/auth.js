@@ -1,4 +1,4 @@
-const EMAIL = 'my@emai.com';
+const EMAIL = 'my@email.com';
 const PASSWORD = '1234';
 
 export const signIn = (email,password) => {

@@ -13,11 +13,22 @@ const AuthStack = () => {
     <Stack.Navigator initialRouteName={'SignIn'} 
     screenOptions={{
         contentStyle: {backgroundColor: WHITE},
+        headerTitleAlign: 'center',
     }}>
-      <Stack.Screen name={'List'} component={ListScreen} />
+      <Stack.Screen 
+      name={'List'} 
+      component={ListScreen} 
+      options={{
+        title: 'TODO LIST',
+    }}
+      />
       <Stack.Screen 
       name={'SignIn'} 
-      component={SignInScreen}/>
+      component={SignInScreen}
+      options={{
+        title: 'TODO LIST',
+    }}
+      />
     </Stack.Navigator>
   );
 };
