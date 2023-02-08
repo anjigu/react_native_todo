@@ -11,7 +11,7 @@ import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({ navigation, setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //useRef은 값이 변해도 리렌더링 되지 않는다
@@ -30,8 +30,9 @@ const SignInScreen = ({ navigation }) => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        await signIn(email, password);
+        const data = await signIn(email, password);
         setIsLoading(false);
+        setUser(data);
         //화면 이동 
         navigation.navigate('List');
       } catch (e) {

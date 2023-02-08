@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PRIMARY, WHITE } from '../colors';
 import ListScreen from '../screens/ListScreen';
-import SignInScreen from '../screens/SignInScreen';
 import HeaderLeftButton from '../components/HeaderLeftButton';
 import HeaderRightButton from '../components/HeaderRightButton';
 import SettingScreen from '../screens/SettingScreen';
@@ -19,7 +18,6 @@ const MainStack = () => {
         headerTitleAlign: 'center', //안드로이드 화면을 위한 별도의 설정
         headerTintColor: PRIMARY.DEFAULT,
         headerTitleStyle: { fontWeight: '700'},
-        title: 'TODO LIST',
         headerBackTitleVisible: false, //Ios 뒤로가기 버튼에서도 타이틀이 보이지 않게 함
         headerLeft: HeaderLeftButton,  //헤더 왼쪽 버튼 뒤로가기 기능     
 }}
@@ -27,8 +25,7 @@ const MainStack = () => {
       <Stack.Screen 
       name={'List'} 
       component={ListScreen}
-      options={{headerRight: HeaderRightButton}} />
-      <Stack.Screen name={'SignIn'} component={SignInScreen} options={{headerShown: false,}}/> 
+      options={{title: 'TODO LIST', headerRight: HeaderRightButton}} />
       <Stack.Screen name={'Settings'} component={SettingScreen} />
     </Stack.Navigator>
   );
