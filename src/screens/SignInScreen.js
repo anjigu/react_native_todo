@@ -32,7 +32,7 @@ const SignInScreen = ({ navigation }) => {
         await signIn(email, password);       
         setIsLoading(false); 
         //화면 이동 
-        navigation.push('List');
+        navigation.navigate('List');
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
           {
