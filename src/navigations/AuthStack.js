@@ -13,7 +13,7 @@ const AuthStack = () => {
     <Stack.Navigator initialRouteName={'SignIn'} 
     screenOptions={{
         contentStyle: {backgroundColor: WHITE},
-        headerTitleAlign: 'center',
+        headerTitleAlign: 'center', //안드로이드 화면을 위한 별도의 설정
     }}>
       <Stack.Screen 
       name={'List'} 
