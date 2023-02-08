@@ -8,8 +8,9 @@ import Input, {
   ReturnKeyTypes,
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
+import PropTypes from 'prop-types';
 
-const SignInScreen = ({navigation, route}) => {
+const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //useRef은 값이 변해도 리렌더링 되지 않는다
@@ -17,7 +18,7 @@ const SignInScreen = ({navigation, route}) => {
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   //로그인
   useEffect(() => {
     setDisabled(!email || !password)
@@ -31,7 +32,7 @@ const SignInScreen = ({navigation, route}) => {
         await signIn(email, password);       
         setIsLoading(false); 
         //화면 이동 
-        navigation.navigate('List');
+        navigation.push('List');
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
           {
@@ -82,6 +83,10 @@ const SignInScreen = ({navigation, route}) => {
     </SafeInputView>
   );
 };
+
+SignInScreen.PropTypes = {
+  navigation: PropTypes.object,
+}
 
 const styles = StyleSheet.create({
   container: {
