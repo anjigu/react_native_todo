@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Image, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Alert, Image, Keyboard, StyleSheet, View } from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
@@ -9,6 +9,7 @@ import Input, {
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -18,19 +19,19 @@ const SignInScreen = ({ navigation }) => {
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  
-  //로그인
-  useEffect(() => {
-    setDisabled(!email || !password)
-  }, [email, password]) 
 
+  const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    setDisabled(!email || !password);
+  }, [email, password]);
   const onSubmit = async () => {
     if (!disabled && !isLoading) {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        await signIn(email, password);       
-        setIsLoading(false); 
+        await signIn(email, password);
+        setIsLoading(false);
         //화면 이동 
         navigation.navigate('List');
       } catch (e) {
@@ -46,7 +47,12 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <SafeInputView>
-      <SafeAreaView style={styles.container}> 
+      <View
+        style={[
+          styles.container,
+          { paddingTop: insets.top, paddingBottom: insets.bottom },
+        ]}
+      >
         <Image
           source={require('../../assets/main.png')}
           style={styles.image}
@@ -71,23 +77,21 @@ const SignInScreen = ({ navigation }) => {
           iconName={IconNames.PASSWORD}
           onSubmitEditing={onSubmit}
         />
-
         <View style={styles.buttonContainer}>
-          <Button 
-          title={'LOGIN'} 
-          onPress={onSubmit} 
-          disabled={disabled} 
+          <Button
+            title={'LOGIN'}
+            onPress={onSubmit}
+            disabled={disabled}
+            isLoading={isLoading}
           />
         </View>
-      </SafeAreaView>
+      </View>
     </SafeInputView>
   );
 };
-
-SignInScreen.PropTypes = {
+SignInScreen.propTypes = {
   navigation: PropTypes.object,
-}
-
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -104,5 +108,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
 export default SignInScreen;
