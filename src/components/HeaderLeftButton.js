@@ -9,9 +9,11 @@ const HeaderLeftButton = ({ canGoBack, tintColor }) => {
             if(!canGoBack){
                 return null;
             }
+
             return (
                 //헤더 왼쪽 버튼 뒤로가기 기능
-                <Pressable onPress={navigation.goBack}> 
+                //hitSlop의 경우, 클릭 범위를 넒혀줌
+                <Pressable onPress={navigation.goBack} hitSlop={10}> 
                 <MaterialCommunityIcons 
                 name="chevron-left" 
                 size={30} 
