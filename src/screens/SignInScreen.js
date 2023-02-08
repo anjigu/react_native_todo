@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Image, Keyboard, StyleSheet, View } from 'react-native';
+import { Alert, Image, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
 import Input, {
@@ -46,7 +46,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <SafeInputView>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}> 
         <Image
           source={require('../../assets/main.png')}
           style={styles.image}
@@ -79,7 +79,7 @@ const SignInScreen = ({ navigation }) => {
           disabled={disabled} 
           />
         </View>
-      </View>
+      </SafeAreaView>
     </SafeInputView>
   );
 };
