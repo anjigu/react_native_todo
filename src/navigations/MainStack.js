@@ -7,6 +7,7 @@ import SettingScreen from '../screens/SettingScreen';
 
 const Stack = createNativeStackNavigator();
 
+//로그인 후 보여지는 스택
 const MainStack = () => {
   return (
     <Stack.Navigator initialRouteName={'SignIn'} 
