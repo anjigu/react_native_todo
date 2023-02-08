@@ -9,9 +9,6 @@ const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
   return (
-    //첫번째 화면 지정 방법
-    //1. <Screen />의 순서
-    //2. <Navigator initialRouteName="">를 통해 지정
     <Stack.Navigator initialRouteName={'SignIn'} 
     screenOptions={{
         contentStyle: {backgroundColor: WHITE},
