@@ -20,9 +20,9 @@ const AuthStack = () => {
     component={SignInScreen}
     options={{
         headerShown: false,
-    }}>
-    </Stack.Screen>
+    }}/>
     </Stack.Navigator>
   );
 };
+
 export default AuthStack;

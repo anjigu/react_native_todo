@@ -26,17 +26,15 @@ const [isFocused, setIsFocused] = useState(false);
 return (
     <View style={styles.container}>
       <Text style={[
-        //스타일이 여러가지 일때는, 조건이 많이 붙는 스타일은 가장 뒤로 보내기
         styles.title, //default
         value && styles.hasValueTitle, //value
         isFocused && styles.focusedTitle, //value +focus  
       ]}>
       {title}
-      </Text>
+    </Text>
 
 <View>
       <TextInput
-      //props는 최상단에 위치 
       ref={ref}
         {...props}
         value={value}
@@ -59,7 +57,6 @@ return (
             name={iconName}
             size={20}
             color={(() => {
-              //즉시 실행 함수
               switch (true) {
                 case isFocused:
                   return PRIMARY.DEFAULT;
@@ -72,7 +69,7 @@ return (
           />
         </View>
       </View>
-      </View>
+    </View>
   );
 });
 
