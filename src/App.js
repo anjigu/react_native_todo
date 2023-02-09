@@ -7,7 +7,7 @@ import MainStack from './navigations/MainStack';
 
 const App = () => {
   //10. 유저 상태 변수가 변경되니 
-  const [ user, setUser ] = useState(null);
+  // const [ user, setUser ] = useState(null);
 
   return (
   //1. UserContext.Provider가 제공하는 데이터를 사용할 수 있다 
