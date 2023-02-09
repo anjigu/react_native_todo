@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserContext from '../contexts/UserContent';
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //useRef은 값이 변해도 리렌더링 되지 않는다
