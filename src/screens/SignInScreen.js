@@ -10,8 +10,9 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import UserContext from '../contexts/UserContent';
 
-const SignInScreen = ({ navigation, setUser }) => {
+const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //useRef은 값이 변해도 리렌더링 되지 않는다
@@ -25,13 +26,18 @@ const SignInScreen = ({ navigation, setUser }) => {
   useEffect(() => {
     setDisabled(!email || !password);
   }, [email, password]);
-  const onSubmit = async () => {
+
+  //5. setUser를 사용하는 onSubmit 함수에 전달하기 위해 
+  //7. onSubmit 함수에서는 전달된 setUser를 사용해서 
+  const onSubmit = async (setUser) => {
     if (!disabled && !isLoading) {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
+        //8. signIn 함수가 성공했을때 전달된 데이터로 
         const data = await signIn(email, password);
         setIsLoading(false);
+        //9. 유저 상태 변수를 수정했다 
         setUser(data);
         //화면 이동 
         navigation.navigate('List');
@@ -47,6 +53,11 @@ const SignInScreen = ({ navigation, setUser }) => {
   };
 
   return (
+    //3. 데이터를 받는 곳, UserContext의 Consumer를 사용해서 render props 패턴으로 받으면 된다
+    //4. 파라미터로 전달된 setUser를 받아와서 
+    <UserContext.Consumer>
+      {({ setUser}) => {
+        return (
     <SafeInputView>
       <View
         style={[
@@ -76,18 +87,22 @@ const SignInScreen = ({ navigation, setUser }) => {
           title={'password'}
           secureTextEntry
           iconName={IconNames.PASSWORD}
-          onSubmitEditing={onSubmit}
+          onSubmitEditing={() => onSubmit(setUser)}
         />
         <View style={styles.buttonContainer}>
           <Button
             title={'LOGIN'}
-            onPress={onSubmit}
+            // 6. onSubmit 함수를 호출하는 곳애서 setUser를 파라미터로 전달
+            onPress={() => onSubmit(setUser)}
             disabled={disabled}
             isLoading={isLoading}
           />
         </View>
       </View>
     </SafeInputView>
+        );
+      }}
+    </UserContext.Consumer>
   );
 };
 SignInScreen.propTypes = {
