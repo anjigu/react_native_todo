@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Alert, Image, Keyboard, StyleSheet, View } from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
@@ -10,7 +10,7 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import UserContext from '../contexts/UserContent';
+import UserContext from '../contexts/UserContet';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,6 +22,8 @@ const SignInScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
+  //데이터를 받아와야할 때마다 UserContext.Consumer 사용해야하는 불편함 줄여주는 Hook
+  const {setUser} = useContext(UserContext);
 
   useEffect(() => {
     setDisabled(!email || !password);
@@ -29,7 +31,7 @@ const SignInScreen = () => {
 
   //5. setUser를 사용하는 onSubmit 함수에 전달하기 위해 
   //7. onSubmit 함수에서는 전달된 setUser를 사용해서 
-  const onSubmit = async (setUser) => {
+  const onSubmit = async () => {
     if (!disabled && !isLoading) {
       Keyboard.dismiss();
       setIsLoading(true);
@@ -55,9 +57,9 @@ const SignInScreen = () => {
   return (
     //3. 데이터를 받는 곳, UserContext의 Consumer를 사용해서 render props 패턴으로 받으면 된다
     //4. 파라미터로 전달된 setUser를 받아와서 
-    <UserContext.Consumer>
-      {({ setUser}) => {
-        return (
+    // <UserContext.Consumer>
+    //   {({ setUser}) => {
+    //     return (
     <SafeInputView>
       <View
         style={[
@@ -87,22 +89,24 @@ const SignInScreen = () => {
           title={'password'}
           secureTextEntry
           iconName={IconNames.PASSWORD}
-          onSubmitEditing={() => onSubmit(setUser)}
+          // onSubmitEditing={() => onSubmit(setUser)}
+          onSubmitEditing={onSubmit}
         />
         <View style={styles.buttonContainer}>
           <Button
             title={'LOGIN'}
             // 6. onSubmit 함수를 호출하는 곳애서 setUser를 파라미터로 전달
-            onPress={() => onSubmit(setUser)}
+            // onPress={() => onSubmit(setUser)}
+            onPress={onSubmit}
             disabled={disabled}
             isLoading={isLoading}
           />
         </View>
       </View>
     </SafeInputView>
-        );
-      }}
-    </UserContext.Consumer>
+    //     );
+    //   }}
+    // </UserContext.Consumer>
   );
 };
 SignInScreen.propTypes = {
