@@ -10,7 +10,7 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import UserContext from '../contexts/UserContet';
+import UserContext from '../contexts/UserContext';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
