@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import Button from "../components/Button";
+import Button, { ButtonTypes } from "../components/Button";
 import { useUserContext } from "../contexts/UserContext";
 
 const SettingScreen = () => {
@@ -7,7 +7,11 @@ const SettingScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
-            <Button title='SIGNOUT' onPress={() => setUser(null)}/>
+            <Button 
+            title='SIGNOUT' 
+            onPress={() => setUser(null)}
+            buttonType={ButtonTypes.DANGER}
+            />
             </View>
         </View>
     )
