@@ -4,26 +4,34 @@ import { DANGER, GRAY, PRIMARY, WHITE } from '../colors';
 
 export const ButtonTypes = {
   PRIMARY: 'PRIMARY',
-  DANGER: 'DANGER'
+  DANGER: 'DANGER',
 };
 
 const Button = ({ title, onPress, disabled, isLoading, buttonType }) => {
-  const colors = {PRIMARY, DANGER};
+  const colors = { PRIMARY, DANGER };
+
+  // colors = {
+  //   PRIMARY: {LIGHT: '', DEFAULT: '', DARK: ''},
+  //   DANGER: {LIGHT: '', DEFAULT: '', DARK: ''},
+  // }
+  // colors[buttonType] => colors['PRIMARY'] or colors['DANGER']
 
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
         styles.container,
-        {backgroundColor: colors[buttonType].DEFAULT},
+        { backgroundColor: colors[buttonType].DEFAULT },
         pressed && { backgroundColor: colors[buttonType].DARK },
         disabled && { backgroundColor: colors[buttonType].LIGHT },
       ]}
       disabled={disabled}
     >
-        {isLoading 
-        ? (<ActivityIndicator size={'small'} color={GRAY.DEFAULT}/>) 
-        : (<Text style={styles.title}>{title}</Text>)}
+      {isLoading ? (
+        <ActivityIndicator size={'small'} color={GRAY.DEFAULT} />
+      ) : (
+        <Text style={styles.title}>{title}</Text>
+      )}
     </Pressable>
   );
 };
@@ -51,9 +59,8 @@ const styles = StyleSheet.create({
   title: {
     color: WHITE,
     fontSize: 16,
-    fontWeight: '700', 
-    lineHeight: 20, 
+    fontWeight: '700',
+    lineHeight: 20,
   },
 });
-
 export default Button;
