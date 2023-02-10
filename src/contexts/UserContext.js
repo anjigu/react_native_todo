@@ -17,6 +17,8 @@ UserProvider.propTypes = {
   children: PropTypes.node
 };
 
+//custom Hook
+//useContext를 사용해서 UserContext에 있는 데이터를 반환 
 export const useUserContext = () => 
 useContext(UserContext);
 

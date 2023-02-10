@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, Image, Keyboard, StyleSheet, View } from 'react-native';
 import { signIn } from '../api/auth';
 import Button from '../components/Button';
@@ -10,7 +10,7 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import UserContext from '../contexts/UserContext';
+import { useUserContext } from '../contexts/UserContext';
 
 
 const SignInScreen = () => {
@@ -24,7 +24,7 @@ const SignInScreen = () => {
 
   const insets = useSafeAreaInsets();
   //데이터를 받아와야할 때마다 UserContext.Consumer 사용해야하는 불편함 줄여주는 Hook
-  const {setUser} = useContext(UserContext);
+  const { setUser } = useUserContext();
 
   useEffect(() => {
     setDisabled(!email || !password);
