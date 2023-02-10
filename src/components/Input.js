@@ -26,9 +26,9 @@ const [isFocused, setIsFocused] = useState(false);
 return (
     <View style={styles.container}>
       <Text style={[
-        styles.title, //default
-        value && styles.hasValueTitle, //value
-        isFocused && styles.focusedTitle, //value +focus  
+        styles.title, 
+        value && styles.hasValueTitle,
+        isFocused && styles.focusedTitle, 
       ]}>
       {title}
     </Text>

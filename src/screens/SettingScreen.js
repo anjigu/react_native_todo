@@ -1,9 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Button from "../components/Button";
+import { useUserContext } from "../contexts/UserContext";
 
 const SettingScreen = () => {
+    const { setUser } = useUserContext();
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 30}}>SettingsScreen</Text>
+            <View style={styles.buttonContainer}>
+            <Button title='SIGNOUT' onPress={() => setUser(null)}/>
+            </View>
         </View>
     )
 }
@@ -13,7 +18,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    buttonContainer: {
+        width: '100%',
+        paddingHorizontal: 20,
+    },
 })
 
 export default SettingScreen;
